@@ -228,7 +228,7 @@ export default function Home() {
             >
               <BrandLogo
                 variant="compact"
-                className="max-w-[10rem] min-[390px]:max-w-[11.25rem] sm:max-w-[14rem]"
+                className="max-w-[10.75rem] min-[390px]:max-w-[12rem] sm:max-w-[14rem]"
               />
             </a>
 
@@ -350,7 +350,7 @@ export default function Home() {
                     <div className="flex items-start justify-between gap-3">
                       <BrandLogo
                         variant="compact"
-                        className="max-w-[12rem] min-[390px]:max-w-[13rem]"
+                        className="max-w-[12.5rem] min-[390px]:max-w-[13.75rem]"
                       />
                       <span className="shrink-0 rounded-full border border-[#ead5da] bg-white/85 px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#a07481]">
                         {siteConfig.registry}
