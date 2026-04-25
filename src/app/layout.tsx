@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Allura, Cormorant_Garamond, Manrope } from "next/font/google";
+import { getSiteUrl, siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -19,40 +20,20 @@ const allura = Allura({
   weight: "400",
 });
 
-function getSiteUrl(rawValue?: string) {
-  const fallbackUrl = "https://example.com";
-
-  if (!rawValue) {
-    return fallbackUrl;
-  }
-
-  const normalizedValue =
-    rawValue.startsWith("http://") || rawValue.startsWith("https://")
-      ? rawValue
-      : `https://${rawValue}`;
-
-  try {
-    return new URL(normalizedValue).toString();
-  } catch {
-    return fallbackUrl;
-  }
-}
-
-const siteUrl = getSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Sherany Mercado | Acompañamiento psicológico",
-    template: "%s | Sherany Mercado",
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Acompañamiento psicológico profesional para adultos y deportistas. Atención online y presencial, nacional e internacional. Agenda por WhatsApp.",
-  applicationName: "Sherany Mercado",
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
   keywords: [
     "psicóloga",
     "acompañamiento psicológico",
-    "Sherany Mercado",
+    siteConfig.name,
     "psicología clínica",
     "atención online",
     "deportistas y adultos",
@@ -67,12 +48,12 @@ export const metadata: Metadata = {
     apple: "/icon.svg",
   },
   openGraph: {
-    title: "Sherany Mercado | Acompañamiento psicológico",
+    title: siteConfig.title,
     description:
       "Un espacio profesional y humano para acompañarte en tu bienestar emocional, con atención online y presencial.",
-    locale: "es_VE",
+    locale: siteConfig.locale,
     type: "website",
-    siteName: "Sherany Mercado",
+    siteName: siteConfig.name,
     images: [
       {
         url: "/images/sherany-photo.jpg",
@@ -84,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sherany Mercado | Acompañamiento psicológico",
+    title: siteConfig.title,
     description:
       "Atención psicológica profesional para adultos y deportistas. Agenda por WhatsApp.",
     images: ["/images/sherany-photo.jpg"],

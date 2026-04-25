@@ -7,25 +7,29 @@ import {
   GlobeIcon,
   InstagramIcon,
   MessageIcon,
-  PhoneIcon,
   ShieldIcon,
   SparklesIcon,
   WhatsAppIcon,
 } from "@/components/ui-icons";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
+import { getWhatsappLink, siteConfig } from "@/lib/site-config";
 
-const whatsappMessage = encodeURIComponent(
-  "Hola, Sherany. Me gustaría recibir información sobre tu acompañamiento psicológico.",
-);
-
-const whatsappHref = `https://wa.me/584144758637?text=${whatsappMessage}`;
-const instagramHref = "https://instagram.com/mercadosherany";
-const phoneHref = "tel:+584144758637";
+const whatsappLinks = {
+  hero: getWhatsappLink(
+    "Hola, Sherany. Quiero recibir información sobre tu acompañamiento psicológico.",
+  ),
+  process: getWhatsappLink(
+    "Hola, Sherany. Me gustaría conversar sobre cómo sería el proceso de acompañamiento.",
+  ),
+  book: getWhatsappLink(
+    "Hola, Sherany. Me gustaría agendar una consulta contigo.",
+  ),
+};
 
 const navigation = [
   { label: "Inicio", href: "#inicio" },
   { label: "Acompañamiento", href: "#acompanamiento" },
-  { label: "Modalidad", href: "#modalidad" },
+  { label: "Proceso", href: "#proceso" },
   { label: "Preguntas", href: "#preguntas" },
 ];
 
@@ -33,7 +37,14 @@ const trustHighlights = [
   "Atención a adultos y deportistas",
   "Modalidad online y presencial",
   "Acompañamiento nacional e internacional",
-  "Registro profesional FPV 18.468",
+  `Registro profesional ${siteConfig.registry}`,
+];
+
+const contactMoments = [
+  "Ansiedad, estrés o sobrecarga emocional.",
+  "Necesidad de ordenar pensamientos y decisiones.",
+  "Bienestar emocional dentro y fuera del rendimiento.",
+  "Autoestima, relaciones y cambios vitales.",
 ];
 
 const focusAreas = [
@@ -118,26 +129,40 @@ const faqItems = [
   },
 ];
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Sherany Mercado",
-  jobTitle: "Psicóloga mención clínica",
-  description:
-    "Acompañamiento psicológico profesional para adultos y deportistas, con atención online y presencial.",
-  telephone: "+58 414-4758637",
-  identifier: "FPV 18.468",
-  sameAs: [instagramHref],
-  knowsAbout: [
-    "acompañamiento psicológico",
-    "bienestar emocional",
-    "atención a deportistas",
-    "adultos",
-    "mindfulness",
-  ],
-  areaServed: ["Venezuela", "Atención online internacional"],
-  availableLanguage: ["es"],
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: siteConfig.name,
+    jobTitle: "Psicóloga mención clínica",
+    description:
+      "Acompañamiento psicológico profesional para adultos y deportistas, con atención online y presencial.",
+    telephone: siteConfig.phoneDisplay,
+    identifier: siteConfig.registry,
+    sameAs: [siteConfig.instagramUrl],
+    knowsAbout: [
+      "acompañamiento psicológico",
+      "bienestar emocional",
+      "atención a deportistas",
+      "adultos",
+      "mindfulness",
+    ],
+    areaServed: ["Venezuela", "Atención online internacional"],
+    availableLanguage: ["es"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -153,11 +178,11 @@ export default function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[32rem] bg-[radial-gradient(circle_at_top,_rgba(246,223,230,0.88),_transparent_56%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[34rem] bg-[radial-gradient(circle_at_top,_rgba(246,223,230,0.88),_transparent_56%)]" />
         <div className="pointer-events-none absolute -top-12 left-[-8rem] -z-20 h-72 w-72 rounded-full bg-[#f5d9df]/60 blur-3xl" />
         <div className="pointer-events-none absolute right-[-6rem] top-[24rem] -z-20 h-80 w-80 rounded-full bg-[#eed7c6]/45 blur-3xl" />
 
@@ -180,7 +205,7 @@ export default function Home() {
             </nav>
 
             <a
-              href={whatsappHref}
+              href={whatsappLinks.book}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-[#2f2229] px-4 py-2.5 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5"
@@ -189,6 +214,22 @@ export default function Home() {
               <span className="hidden sm:inline">Agendar por WhatsApp</span>
               <span className="sm:hidden">WhatsApp</span>
             </a>
+          </div>
+
+          <div className="border-t border-white/60 md:hidden">
+            <div className="mx-auto max-w-7xl overflow-x-auto px-5 py-3 sm:px-6">
+              <div className="flex w-max items-center gap-2">
+                {navigation.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="rounded-full border border-[#ead5da] bg-white/78 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#7e6670]"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </header>
 
@@ -211,7 +252,7 @@ export default function Home() {
 
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                   <a
-                    href={whatsappHref}
+                    href={whatsappLinks.hero}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-3 rounded-full bg-[#169b62] px-6 py-4 text-base font-semibold text-white shadow-[0_18px_45px_rgba(22,155,98,0.24)] transition-transform duration-300 hover:-translate-y-0.5"
@@ -243,12 +284,18 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="mt-8 flex items-start gap-3 rounded-[1.5rem] border border-[#ead6db] bg-[linear-gradient(135deg,rgba(255,255,255,0.85),rgba(249,237,240,0.95))] px-5 py-4 text-sm text-[#6b5660]">
-                  <ShieldIcon className="mt-0.5 size-5 shrink-0 text-[#c79c54]" />
-                  <p>
-                    Un proceso cuidado, confidencial y pensado para que puedas
-                    sentirte acompañada con respeto, claridad y contención.
+                <div className="mt-8 rounded-[1.8rem] border border-[#ead6db] bg-[linear-gradient(135deg,rgba(255,255,255,0.85),rgba(249,237,240,0.95))] px-5 py-5 text-sm text-[#6b5660]">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-[#a77986]">
+                    Puedes escribir si hoy necesitas
                   </p>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {contactMoments.map((item) => (
+                      <div key={item} className="flex items-start gap-3">
+                        <ShieldIcon className="mt-0.5 size-4 shrink-0 text-[#c79c54]" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -256,38 +303,46 @@ export default function Home() {
                 <div className="absolute -left-6 top-10 hidden h-28 w-28 rounded-full border border-[#ebd6db] lg:block" />
                 <div className="absolute -right-4 bottom-14 hidden h-36 w-36 rounded-full bg-[#f0d6dd]/40 blur-2xl lg:block" />
 
-                <div className="soft-shadow relative overflow-hidden rounded-[2.25rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(252,241,243,0.92))] p-5 sm:p-6">
-                  <BrandLogo variant="full" className="mb-6" />
+                <div className="soft-shadow relative overflow-hidden rounded-[2.35rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(252,241,243,0.92))] p-5 sm:p-6">
+                  <BrandLogo variant="full" className="relative z-10 mb-6" />
 
-                  <div className="fine-border relative min-h-[26rem] overflow-hidden rounded-[2rem] bg-[#f6e7eb] sm:min-h-[33rem]">
-                    <div className="mesh-sheen absolute inset-0 z-10" />
-                    <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.8),transparent_48%),linear-gradient(180deg,rgba(255,250,252,0.72),transparent_40%,rgba(47,34,41,0.16)_100%)]" />
-
-                    <Image
-                      src="/images/sherany-photo.jpg"
-                      alt="Sherany Mercado, psicóloga mención clínica."
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 44vw, 100vw"
-                      className="object-cover object-[center_66%]"
-                    />
-
-                    <div className="absolute left-5 top-5 z-20 rounded-full border border-white/80 bg-white/78 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-[#9d7b86] backdrop-blur-md">
-                      Acompañamiento psicológico
+                  <div className="relative min-h-[27rem] overflow-hidden rounded-[2rem] bg-[linear-gradient(180deg,#fff7f9_0%,#f6e1e7_42%,#eed3dc_100%)] px-4 pt-16 sm:min-h-[36rem] sm:px-6">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.88),transparent_48%)]" />
+                    <div className="absolute left-5 top-4 z-20 rounded-full border border-white/80 bg-white/78 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-[#9d7b86] backdrop-blur-md">
+                      Online y presencial
+                    </div>
+                    <div className="absolute right-5 top-4 z-20 rounded-full border border-white/80 bg-white/82 px-4 py-2 text-sm font-semibold text-[#8d6c77] backdrop-blur-md">
+                      {siteConfig.registry}
                     </div>
 
-                    <div className="absolute right-5 top-5 z-20 rounded-full border border-white/80 bg-white/82 px-4 py-2 text-sm font-semibold text-[#8d6c77] backdrop-blur-md">
-                      FPV 18.468
+                    <div className="absolute inset-x-3 bottom-0 top-20 rounded-[1.8rem] border border-white/40 bg-[linear-gradient(180deg,rgba(255,255,255,0.26),rgba(255,255,255,0.1))]" />
+
+                    <div className="absolute left-1/2 bottom-0 z-10 w-[82%] max-w-[24rem] -translate-x-1/2 sm:w-[74%]">
+                      <Image
+                        src="/images/sherany-portrait-tight.webp"
+                        alt="Retrato de Sherany Mercado"
+                        width={357}
+                        height={449}
+                        priority
+                        className="h-auto w-full object-contain drop-shadow-[0_24px_40px_rgba(58,34,45,0.28)]"
+                      />
                     </div>
 
-                    <div className="absolute inset-x-5 bottom-5 z-20 rounded-[1.6rem] border border-white/70 bg-white/70 p-5 backdrop-blur-lg">
-                      <p className="font-display text-3xl leading-none text-[#3b2a33] sm:text-4xl">
-                        Sherany Mercado
+                    <div className="absolute left-5 bottom-6 z-20 max-w-[11rem] rounded-[1.4rem] border border-white/70 bg-white/74 p-4 backdrop-blur-lg">
+                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-[#ad7d89]">
+                        Enfoque
                       </p>
-                      <p className="mt-3 text-sm leading-6 text-[#64505a]">
-                        Atención profesional para adultos y deportistas, en
-                        modalidad online y presencial, con alcance nacional e
-                        internacional.
+                      <p className="mt-2 font-display text-2xl leading-none text-[#3b2a33]">
+                        Adultos y deportistas
+                      </p>
+                    </div>
+
+                    <div className="absolute right-5 bottom-10 z-20 max-w-[10rem] rounded-[1.4rem] border border-white/70 bg-white/74 p-4 backdrop-blur-lg">
+                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-[#ad7d89]">
+                        Alcance
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-[#64505a]">
+                        Nacional e internacional.
                       </p>
                     </div>
                   </div>
@@ -380,7 +435,10 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="mx-auto max-w-7xl px-5 py-24 sm:px-6 lg:px-8">
+          <section
+            id="proceso"
+            className="mx-auto max-w-7xl px-5 py-24 sm:px-6 lg:px-8"
+          >
             <div className="rounded-[2.4rem] border border-white/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.88),rgba(247,236,239,0.95))] px-6 py-10 soft-shadow sm:px-8 lg:px-10">
               <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
                 <div>
@@ -398,7 +456,7 @@ export default function Home() {
                   </p>
 
                   <a
-                    href={whatsappHref}
+                    href={whatsappLinks.process}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-8 inline-flex items-center gap-3 rounded-full border border-[#d7c0c8] bg-white/85 px-5 py-3 text-sm font-semibold text-[#3b2a33] transition-colors hover:border-[#cba6b1] hover:text-[#b57d8b]"
@@ -469,12 +527,16 @@ export default function Home() {
               <aside className="soft-shadow rounded-[2.2rem] border border-white/80 bg-[linear-gradient(160deg,rgba(60,42,51,0.96),rgba(91,65,77,0.92))] p-7 text-white sm:p-8">
                 <BrandLogo variant="full" light className="max-w-[24rem]" />
 
-                <div className="mt-8 space-y-4">
+                <div className="mt-8 rounded-[1.7rem] border border-white/15 bg-white/8 p-5">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-white/55">
+                    Canal principal
+                  </p>
+
                   <a
-                    href={whatsappHref}
+                    href={whatsappLinks.book}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between rounded-[1.6rem] border border-white/15 bg-white/8 px-5 py-4 transition-colors hover:bg-white/12"
+                    className="mt-4 flex items-center justify-between rounded-[1.6rem] border border-white/15 bg-white/10 px-5 py-4 transition-colors hover:bg-white/14"
                   >
                     <div className="flex items-center gap-3">
                       <span className="rounded-full bg-white/12 p-2 text-[#f2d993]">
@@ -484,35 +546,30 @@ export default function Home() {
                         <p className="text-sm font-semibold text-white">
                           WhatsApp
                         </p>
-                        <p className="text-sm text-white/72">+58 414-4758637</p>
-                      </div>
-                    </div>
-                    <ArrowUpRightIcon className="size-5 text-white/78" />
-                  </a>
-
-                  <a
-                    href={phoneHref}
-                    className="flex items-center justify-between rounded-[1.6rem] border border-white/15 bg-white/8 px-5 py-4 transition-colors hover:bg-white/12"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="rounded-full bg-white/12 p-2 text-[#f2d993]">
-                        <PhoneIcon className="size-5" />
-                      </span>
-                      <div>
-                        <p className="text-sm font-semibold text-white">
-                          Teléfono
+                        <p className="text-sm text-white/72">
+                          {siteConfig.phoneDisplay}
                         </p>
-                        <p className="text-sm text-white/72">+58 414-4758637</p>
                       </div>
                     </div>
                     <ArrowUpRightIcon className="size-5 text-white/78" />
                   </a>
 
+                  <p className="mt-4 text-sm leading-7 text-white/75">
+                    Es la vía más directa para pedir información, consultar
+                    disponibilidad y coordinar tu primera sesión.
+                  </p>
+                </div>
+
+                <div className="mt-4 rounded-[1.7rem] border border-white/12 bg-white/8 p-5">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-white/55">
+                    Apoyo y presencia
+                  </p>
+
                   <a
-                    href={instagramHref}
+                    href={siteConfig.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between rounded-[1.6rem] border border-white/15 bg-white/8 px-5 py-4 transition-colors hover:bg-white/12"
+                    className="mt-4 flex items-center justify-between rounded-[1.6rem] border border-white/15 bg-white/10 px-5 py-4 transition-colors hover:bg-white/14"
                   >
                     <div className="flex items-center gap-3">
                       <span className="rounded-full bg-white/12 p-2 text-[#f2d993]">
@@ -522,7 +579,9 @@ export default function Home() {
                         <p className="text-sm font-semibold text-white">
                           Instagram
                         </p>
-                        <p className="text-sm text-white/72">@mercadosherany</p>
+                        <p className="text-sm text-white/72">
+                          {siteConfig.instagramHandle}
+                        </p>
                       </div>
                     </div>
                     <ArrowUpRightIcon className="size-5 text-white/78" />
@@ -613,7 +672,7 @@ export default function Home() {
 
                 <div className="flex flex-col gap-4">
                   <a
-                    href={whatsappHref}
+                    href={whatsappLinks.book}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-3 rounded-full bg-[#169b62] px-7 py-4 text-base font-semibold text-white shadow-[0_18px_45px_rgba(22,155,98,0.24)] transition-transform duration-300 hover:-translate-y-0.5"
@@ -622,7 +681,7 @@ export default function Home() {
                     Escribir por WhatsApp
                   </a>
                   <a
-                    href={instagramHref}
+                    href={siteConfig.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-3 rounded-full border border-[#dec7ce] bg-white/80 px-7 py-4 text-base font-semibold text-[#3b2a33] transition-colors hover:border-[#cba7b3] hover:text-[#b57d8b]"
@@ -654,32 +713,32 @@ export default function Home() {
 
             <div className="space-y-3 text-sm text-[#6f5b65]">
               <a
-                href={whatsappHref}
+                href={whatsappLinks.book}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 transition-colors hover:text-[#169b62]"
               >
                 <WhatsAppIcon className="size-4" />
-                +58 414-4758637
+                {siteConfig.phoneDisplay}
               </a>
               <a
-                href={instagramHref}
+                href={siteConfig.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 transition-colors hover:text-[#b57d8b]"
               >
                 <InstagramIcon className="size-4" />
-                @mercadosherany
+                {siteConfig.instagramHandle}
               </a>
               <p className="flex items-center gap-3">
                 <ShieldIcon className="size-4 text-[#c79c54]" />
-                Registro profesional FPV 18.468
+                Registro profesional {siteConfig.registry}
               </p>
             </div>
           </div>
         </footer>
 
-        <WhatsAppFloat href={whatsappHref} />
+        <WhatsAppFloat href={whatsappLinks.book} />
       </div>
     </>
   );
