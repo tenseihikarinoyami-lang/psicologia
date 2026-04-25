@@ -17,17 +17,16 @@ function LotusPsiMark({ light = false }: { light?: boolean }) {
   return (
     <div
       className={classes(
-        "relative flex shrink-0 items-center justify-center overflow-hidden rounded-[1.8rem]",
+        "relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-[1.35rem] sm:h-[4.8rem] sm:w-[4.8rem] sm:rounded-[1.8rem]",
         light
           ? "bg-white/14 ring-1 ring-white/20"
           : "bg-[radial-gradient(circle_at_top,_#fff7fa_0%,_#f5dde3_45%,_#efd0d8_100%)] ring-1 ring-[#ebcfd4]",
       )}
-      style={{ width: "4.8rem", height: "4.8rem" }}
       aria-hidden="true"
     >
       <span
         className={classes(
-          "absolute bottom-[0.08rem] text-[3.2rem] leading-none font-display",
+          "absolute bottom-[0.02rem] text-[2.35rem] leading-none font-display sm:bottom-[0.08rem] sm:text-[3.2rem]",
           light ? "text-[#f6e7ba]" : "text-[#c69c54]",
         )}
       >
@@ -35,7 +34,7 @@ function LotusPsiMark({ light = false }: { light?: boolean }) {
       </span>
       <svg
         viewBox="0 0 100 100"
-        className="absolute -top-1 w-[3.8rem]"
+        className="absolute -top-1 w-[2.8rem] sm:w-[3.8rem]"
         role="presentation"
       >
         <path
@@ -79,12 +78,12 @@ export function BrandLogo({
 }: BrandLogoProps) {
   if (variant === "compact") {
     return (
-      <div className={classes("flex items-center gap-3", className)}>
+      <div className={classes("flex items-center gap-2.5 sm:gap-3", className)}>
         <LotusPsiMark light={light} />
         <div className="min-w-0">
           <p
             className={classes(
-              "truncate font-script text-[2rem] leading-none",
+              "truncate font-script text-[1.55rem] leading-none sm:text-[2rem]",
               light ? "text-white" : "text-[#a96c7a]",
             )}
           >
@@ -92,7 +91,7 @@ export function BrandLogo({
           </p>
           <p
             className={classes(
-              "mt-1 text-[0.62rem] font-semibold uppercase tracking-[0.34em]",
+              "mt-1 truncate whitespace-nowrap text-[0.54rem] font-semibold uppercase tracking-[0.28em] sm:text-[0.62rem] sm:tracking-[0.34em]",
               light ? "text-white/75" : "text-[#7f6670]",
             )}
           >
@@ -107,25 +106,25 @@ export function BrandLogo({
     <div className={classes("relative inline-flex flex-col", className)}>
       <span
         className={classes(
-          "pointer-events-none absolute -left-1 top-2 text-[6.5rem] leading-none font-display opacity-70",
+          "pointer-events-none absolute -left-1 top-2 text-[4.4rem] leading-none font-display opacity-70 sm:text-[6.5rem]",
           light ? "text-white/10" : "text-white",
         )}
         aria-hidden="true"
       >
         SM
       </span>
-      <div className="relative z-10 flex items-center gap-4">
+      <div className="relative z-10 flex items-center gap-3 sm:gap-4">
         <LotusPsiMark light={light} />
         <div>
           <p
             className={classes(
-              "font-script text-[2.8rem] leading-none sm:text-[3.2rem]",
+              "font-script text-[2rem] leading-none sm:text-[3.2rem]",
               light ? "text-white" : "text-[#b27b87]",
             )}
           >
             Sherany Mercado
           </p>
-          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.72rem] font-semibold uppercase tracking-[0.34em] sm:text-[0.76rem]">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.64rem] font-semibold uppercase tracking-[0.24em] sm:gap-x-4 sm:text-[0.76rem] sm:tracking-[0.34em]">
             <span className={light ? "text-white/80" : "text-[#8b707b]"}>
               Psicóloga mención clínica
             </span>

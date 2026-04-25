@@ -220,13 +220,16 @@ export default function Home() {
         <div className="hero-glow pointer-events-none absolute right-[-6rem] top-[24rem] -z-20 h-80 w-80 rounded-full bg-[#eed7c6]/45 blur-3xl" />
 
         <header className="glass-divider sticky top-0 z-40 border-b border-white/70 bg-white/72 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
             <a
               href="#inicio"
               aria-label="Ir al inicio"
-              className="transition-transform duration-300 hover:scale-[1.01]"
+              className="min-w-0 flex-1 transition-transform duration-300 hover:scale-[1.01]"
             >
-              <BrandLogo variant="compact" className="max-w-[14rem]" />
+              <BrandLogo
+                variant="compact"
+                className="max-w-[10rem] min-[390px]:max-w-[11.25rem] sm:max-w-[14rem]"
+              />
             </a>
 
             <nav className="hidden items-center gap-7 md:flex">
@@ -245,22 +248,22 @@ export default function Home() {
               href={whatsappLinks.book}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#2f2229] px-4 py-2.5 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#49343e]"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#2f2229] px-3.5 py-2.5 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#49343e] sm:px-4"
             >
               <WhatsAppIcon className="size-4" />
+              <span className="hidden min-[390px]:inline sm:hidden">Agendar</span>
               <span className="hidden sm:inline">Agendar por WhatsApp</span>
-              <span className="sm:hidden">WhatsApp</span>
             </a>
           </div>
 
           <div className="border-t border-white/60 md:hidden">
-            <div className="mx-auto max-w-7xl overflow-x-auto px-5 py-3 sm:px-6">
-              <div className="flex w-max items-center gap-2">
+            <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
+              <div className="grid grid-cols-2 gap-2">
                 {navigation.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
-                    className="rounded-full border border-[#ead5da] bg-white/78 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#7e6670] transition-colors hover:border-[#d9b3bd] hover:text-[#b57d8b]"
+                    className="flex items-center justify-center rounded-full border border-[#ead5da] bg-white/78 px-3 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#7e6670] transition-colors hover:border-[#d9b3bd] hover:text-[#b57d8b]"
                   >
                     {item.label}
                   </a>
@@ -271,32 +274,34 @@ export default function Home() {
         </header>
 
         <main id="inicio">
-          <section className="section-orbit mx-auto max-w-7xl px-5 pt-14 pb-24 sm:px-6 lg:px-8 lg:pt-20">
-            <div className="grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
+          <section className="section-orbit mx-auto max-w-7xl px-5 pt-10 pb-20 sm:px-6 sm:pt-14 lg:px-8 lg:pt-20 lg:pb-24">
+            <div className="grid items-start gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
               <div>
                 <div className="intro-fade-up" style={introStyle(70)}>
                   <SectionEyebrow>Acompañamiento psicológico</SectionEyebrow>
                 </div>
 
                 <h1
-                  className="intro-fade-up mt-6 max-w-3xl font-display text-5xl leading-[0.94] text-[#2f2229] text-balance sm:text-6xl lg:text-7xl"
+                  className="intro-fade-up mt-6 max-w-3xl font-display text-[2.75rem] leading-[0.9] text-[#2f2229] max-[380px]:text-[2.5rem] sm:text-6xl lg:text-7xl"
                   style={introStyle(140)}
                 >
-                  Un espacio humano y profesional para cuidar tu bienestar
-                  emocional.
+                  <span className="block">Un espacio humano y profesional</span>
+                  <span className="mt-2 block sm:mt-0">
+                    para cuidar tu bienestar emocional.
+                  </span>
                 </h1>
 
                 <p
-                  className="intro-fade-up mt-6 max-w-2xl text-lg leading-8 text-[#6f5b65]"
+                  className="intro-fade-up mt-5 max-w-2xl text-[1.05rem] leading-8 text-[#6f5b65] sm:mt-6 sm:text-lg"
                   style={introStyle(220)}
                 >
-                  Sherany Mercado ofrece acompañamiento psicológico para adultos
-                  y deportistas, con una propuesta cercana, clínica y
+                  Sherany Mercado ofrece acompañamiento psicológico para
+                  adultos y deportistas, con una propuesta cercana, clínica y
                   profesional que te ayude a dar ese primer paso con confianza.
                 </p>
 
                 <div
-                  className="intro-fade-up mt-8 flex flex-col gap-4 sm:flex-row"
+                  className="intro-fade-up mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4"
                   style={introStyle(300)}
                 >
                   <a
@@ -318,46 +323,14 @@ export default function Home() {
                   </a>
                 </div>
 
-                <div className="mt-10 grid gap-3 sm:grid-cols-2">
-                  {trustHighlights.map((item, index) => (
-                    <div
-                      key={item}
-                      className="intro-fade-up premium-card hover-lift soft-shadow flex items-start gap-3 rounded-[1.5rem] border border-white/80 bg-white/70 px-4 py-4 text-sm text-[#5e4c56]"
-                      style={introStyle(380 + index * 80)}
-                    >
-                      <span className="mt-0.5 rounded-full bg-[#f7ecef] p-1.5 text-[#c79c54]">
-                        <CheckIcon className="size-4" />
-                      </span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div
-                  className="intro-fade-up premium-card hover-lift mt-8 rounded-[1.8rem] border border-[#ead6db] bg-[linear-gradient(135deg,rgba(255,255,255,0.85),rgba(249,237,240,0.95))] px-5 py-5 text-sm text-[#6b5660]"
-                  style={introStyle(560)}
-                >
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-[#a77986]">
-                    Puedes escribir si hoy necesitas
-                  </p>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    {contactMoments.map((item) => (
-                      <div key={item} className="flex items-start gap-3">
-                        <ShieldIcon className="mt-0.5 size-4 shrink-0 text-[#c79c54]" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
                 <div
                   className="intro-fade-up mt-5 flex flex-wrap gap-2"
-                  style={introStyle(640)}
+                  style={introStyle(380)}
                 >
                   {reassuranceHighlights.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-[#ead6db] bg-white/72 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#8f6f7b]"
+                      className="rounded-full border border-[#ead6db] bg-white/72 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#8f6f7b] sm:text-xs sm:tracking-[0.22em]"
                     >
                       {item}
                     </span>
@@ -365,30 +338,56 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="relative">
+              <div className="relative mx-auto w-full max-w-[32rem] lg:max-w-none">
                 <div className="absolute -left-6 top-10 hidden h-28 w-28 rounded-full border border-[#ebd6db] lg:block" />
                 <div className="absolute -right-4 bottom-14 hidden h-36 w-36 rounded-full bg-[#f0d6dd]/40 blur-2xl lg:block" />
 
                 <div
-                  className="intro-scale-in soft-shadow relative overflow-hidden rounded-[2.35rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(252,241,243,0.92))] p-5 sm:p-6"
+                  className="intro-scale-in soft-shadow relative overflow-hidden rounded-[2.2rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(252,241,243,0.92))] p-4 sm:rounded-[2.35rem] sm:p-6"
                   style={introStyle(220)}
                 >
-                  <div className="intro-fade-up" style={introStyle(420)}>
+                  <div className="sm:hidden">
+                    <div className="flex items-start justify-between gap-3">
+                      <BrandLogo
+                        variant="compact"
+                        className="max-w-[12rem] min-[390px]:max-w-[13rem]"
+                      />
+                      <span className="shrink-0 rounded-full border border-[#ead5da] bg-white/85 px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#a07481]">
+                        {siteConfig.registry}
+                      </span>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <span className="rounded-full border border-[#ead5da] bg-white/80 px-3 py-2 text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-[#8b707b]">
+                        Online y presencial
+                      </span>
+                      <span className="rounded-full border border-[#ead5da] bg-white/80 px-3 py-2 text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-[#8b707b]">
+                        Adultos y deportistas
+                      </span>
+                    </div>
+                  </div>
+
+                  <div
+                    className="hidden sm:block intro-fade-up"
+                    style={introStyle(420)}
+                  >
                     <BrandLogo variant="full" className="relative z-10 mb-6" />
                   </div>
 
-                  <div className="mesh-sheen relative min-h-[27rem] overflow-hidden rounded-[2rem] bg-[linear-gradient(180deg,#fff7f9_0%,#f6e1e7_42%,#eed3dc_100%)] px-4 pt-16 sm:min-h-[36rem] sm:px-6">
+                  <div className="mesh-sheen relative mt-5 min-h-[20.5rem] overflow-hidden rounded-[1.8rem] bg-[linear-gradient(180deg,#fff7f9_0%,#f6e1e7_42%,#eed3dc_100%)] px-4 pt-6 sm:mt-0 sm:min-h-[36rem] sm:rounded-[2rem] sm:px-6 sm:pt-16">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.88),transparent_48%)]" />
-                    <div className="float-gentle absolute left-5 top-4 z-20 rounded-full border border-white/80 bg-white/78 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-[#9d7b86] backdrop-blur-md">
+                    <div className="absolute inset-x-3 bottom-0 top-6 rounded-[1.55rem] border border-white/40 bg-[linear-gradient(180deg,rgba(255,255,255,0.26),rgba(255,255,255,0.1))] sm:top-20 sm:rounded-[1.8rem]" />
+
+                    <div className="float-gentle absolute left-5 top-4 z-20 hidden rounded-full border border-white/80 bg-white/78 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-[#9d7b86] backdrop-blur-md sm:block">
                       Online y presencial
                     </div>
-                    <div className="float-gentle absolute right-5 top-4 z-20 rounded-full border border-white/80 bg-white/82 px-4 py-2 text-sm font-semibold text-[#8d6c77] backdrop-blur-md [animation-delay:-2.8s]">
+                    <div className="float-gentle absolute right-5 top-4 z-20 hidden rounded-full border border-white/80 bg-white/82 px-4 py-2 text-sm font-semibold text-[#8d6c77] backdrop-blur-md [animation-delay:-2.8s] sm:block">
                       {siteConfig.registry}
                     </div>
 
-                    <div className="absolute inset-x-3 bottom-0 top-20 rounded-[1.8rem] border border-white/40 bg-[linear-gradient(180deg,rgba(255,255,255,0.26),rgba(255,255,255,0.1))]" />
+                    <div className="absolute left-1/2 bottom-8 z-0 h-24 w-[72%] -translate-x-1/2 rounded-full bg-white/35 blur-3xl sm:bottom-12 sm:h-28 sm:w-[68%]" />
 
-                    <div className="absolute left-1/2 bottom-0 z-10 w-[82%] max-w-[24rem] -translate-x-1/2 sm:w-[74%]">
+                    <div className="absolute left-1/2 bottom-0 z-10 w-[80%] max-w-[17rem] -translate-x-1/2 sm:w-[74%] sm:max-w-[24rem]">
                       <Image
                         src="/images/sherany-portrait-tight.webp"
                         alt="Retrato de Sherany Mercado"
@@ -399,7 +398,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="float-gentle absolute left-5 bottom-6 z-20 max-w-[11rem] rounded-[1.4rem] border border-white/70 bg-white/74 p-4 backdrop-blur-lg">
+                    <div className="float-gentle absolute left-5 bottom-6 z-20 hidden max-w-[11rem] rounded-[1.4rem] border border-white/70 bg-white/74 p-4 backdrop-blur-lg sm:block">
                       <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-[#ad7d89]">
                         Enfoque
                       </p>
@@ -408,7 +407,7 @@ export default function Home() {
                       </p>
                     </div>
 
-                    <div className="float-gentle absolute right-5 bottom-10 z-20 max-w-[10rem] rounded-[1.4rem] border border-white/70 bg-white/74 p-4 backdrop-blur-lg [animation-delay:-3.6s]">
+                    <div className="float-gentle absolute right-5 bottom-10 z-20 hidden max-w-[10rem] rounded-[1.4rem] border border-white/70 bg-white/74 p-4 backdrop-blur-lg [animation-delay:-3.6s] sm:block">
                       <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-[#ad7d89]">
                         Alcance
                       </p>
@@ -417,6 +416,60 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
+
+                  <div className="mt-4 grid grid-cols-2 gap-3 sm:hidden">
+                    <div className="rounded-[1.35rem] border border-white/80 bg-white/80 p-4 backdrop-blur-lg">
+                      <p className="text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-[#ad7d89]">
+                        Enfoque
+                      </p>
+                      <p className="mt-2 font-display text-[1.65rem] leading-[1.02] text-[#3b2a33]">
+                        Adultos y deportistas
+                      </p>
+                    </div>
+
+                    <div className="rounded-[1.35rem] border border-white/80 bg-white/80 p-4 backdrop-blur-lg">
+                      <p className="text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-[#ad7d89]">
+                        Alcance
+                      </p>
+                      <p className="mt-2 text-[0.98rem] leading-7 text-[#64505a]">
+                        Nacional e internacional.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 grid gap-4 lg:mt-10 lg:grid-cols-[0.92fr_1.08fr]">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {trustHighlights.map((item, index) => (
+                  <div
+                    key={item}
+                    className="intro-fade-up premium-card hover-lift soft-shadow flex items-start gap-3 rounded-[1.5rem] border border-white/80 bg-white/70 px-4 py-4 text-sm text-[#5e4c56]"
+                    style={introStyle(440 + index * 70)}
+                  >
+                    <span className="mt-0.5 rounded-full bg-[#f7ecef] p-1.5 text-[#c79c54]">
+                      <CheckIcon className="size-4" />
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                className="intro-fade-up premium-card hover-lift rounded-[1.8rem] border border-[#ead6db] bg-[linear-gradient(135deg,rgba(255,255,255,0.85),rgba(249,237,240,0.95))] px-5 py-5 text-sm text-[#6b5660]"
+                style={introStyle(620)}
+              >
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-[#a77986]">
+                  Puedes escribir si hoy necesitas
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {contactMoments.map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <ShieldIcon className="mt-0.5 size-4 shrink-0 text-[#c79c54]" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
