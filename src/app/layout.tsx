@@ -19,7 +19,26 @@ const allura = Allura({
   weight: "400",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+function getSiteUrl(rawValue?: string) {
+  const fallbackUrl = "https://example.com";
+
+  if (!rawValue) {
+    return fallbackUrl;
+  }
+
+  const normalizedValue =
+    rawValue.startsWith("http://") || rawValue.startsWith("https://")
+      ? rawValue
+      : `https://${rawValue}`;
+
+  try {
+    return new URL(normalizedValue).toString();
+  } catch {
+    return fallbackUrl;
+  }
+}
+
+const siteUrl = getSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

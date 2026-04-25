@@ -33,6 +33,12 @@ Para que los metadatos usen la URL real del sitio en producción, crea un archiv
 NEXT_PUBLIC_SITE_URL=https://tu-dominio.com
 ```
 
+Debe incluir `https://`. Ejemplo válido:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://psicologia.vercel.app
+```
+
 En desarrollo puedes omitirlo.
 
 ## Verificación antes de publicar
@@ -65,6 +71,7 @@ git push -u origin main
 7. Antes de desplegar, agrega la variable de entorno:
    - Nombre: `NEXT_PUBLIC_SITE_URL`
    - Valor: la URL final del sitio o la URL temporal que te dará Vercel.
+   - Ejemplo correcto: `https://psicologia.vercel.app`
 8. Haz clic en `Deploy`.
 9. Cuando termine, entra al dominio generado por Vercel y revisa:
    - carga general del sitio
